@@ -1,0 +1,21 @@
+version: '3.1'
+services:
+  myjenkins:
+    image: raja9658/myjenkins:1
+    restart: always
+    container_name: jenkins
+    environment:
+    - DOCKER_TLS_VERIFY=1
+    ports:
+      - 8080:8080
+      - 50000:50000
+    volumes:
+      - jenkins-docker-certs:/certs/client:ro
+      - jenkins-data:/var/jenkins_home
+    networks:
+       bridge:
+volumes:
+   jenkins-docker-certs:
+   jenkins-data:
+networks:
+   bridge:
