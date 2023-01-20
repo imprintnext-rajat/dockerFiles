@@ -13,9 +13,25 @@ services:
       - jenkins-docker-certs:/certs/client:ro
       - jenkins-data:/var/jenkins_home
     networks:
-       bridge:
+       mynetwork:
+  mydb:
+    image: mysql:5.7
+    restart: always
+    container_name: mysql
+    environment:
+    - MYSQL_ROOT_USERNAME=raja
+    - MYSQL_ROOT_PASSWORD=12345
+    - MYSQL_DATABASE=imprint_db
+    ports:
+      - 3306:3306
+    volumes:
+      - db_data:/var/db
+    networks:
+       mynetwork:
 volumes:
    jenkins-docker-certs:
    jenkins-data:
+   db_data:
 networks:
-   bridge:
+   mynetwork:
+      driver: bridge
